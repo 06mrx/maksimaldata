@@ -192,7 +192,7 @@
                             {{-- <i class="fas fa-network-wired text-white text-lg"></i> --}}
                             <img src="{{ asset('favicon/apple-icon-76x76.png') }}" alt="">
                         </div>
-                        <span class="text-2xl font-bold gradient-text">Maksimal Data</span>
+                        <span id="title-text" class="text-2xl  font-bold text-slate-200">Maksimal Data</span>
                     </a>
 
                     <!-- Desktop Menu -->
@@ -308,6 +308,7 @@
             const closeMobileMenu = document.getElementById('closeMobileMenu');
             const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
             const menuItems = document.querySelectorAll('.menu-item');
+            const titleText = document.getElementById('title-text');
 
             // Mobile Menu Toggle
             function toggleMobileMenu() {
@@ -371,6 +372,7 @@
                     navbarTexts.forEach(text => {
                         text.classList.add('gradient-text', 'text-slate-800');
                     });
+                    titleText.classList.add('gradient-text', 'text-slate-800');
 
                     // Update mobile menu button color
                     const hamburgerIcon = mobileMenuBtn.querySelector('i');
@@ -382,6 +384,7 @@
                     navbarTexts.forEach(text => {
                         text.classList.remove('gradient-text', 'text-slate-800');
                     });
+                    titleText.classList.remove('gradient-text', 'text-slate-800');
 
                     // Reset mobile menu button color
                     const hamburgerIcon = mobileMenuBtn.querySelector('i');

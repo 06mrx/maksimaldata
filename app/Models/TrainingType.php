@@ -18,7 +18,7 @@ class TrainingType extends Model
         'name',
         'full_name',
         // 'duration_hours',
-        // 'location'
+        'price'
     ];
 
     protected static function boot()
@@ -32,6 +32,10 @@ class TrainingType extends Model
         });
     }
 
+    // public function getPriceAttribute($value)
+    // {
+    //     return number_format($value, 0, ',', '.');
+    // }   
     public function trainingSchedules()
     {
         return $this->hasMany(TrainingSchedule::class, 'training_type_id');

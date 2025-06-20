@@ -55,7 +55,7 @@
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-map-marker-alt text-blue-500 w-5 mr-3"></i>
-                            <span class="text-gray-700"><strong>Lokasi:</strong> <a target="_blank" href="{{$schedule->location}}" class="bg-green-500 px-2 rounded-md">Klik untuk lihat</a> </span>
+                            <span class="text-gray-700"><strong>Lokasi:</strong> {{$schedule->location}}</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-info-circle text-blue-500 w-5 mr-3"></i>
@@ -71,7 +71,7 @@
                     <div class="mt-6 pt-6 border-t border-gray-200">
                         <div class="text-center">
                             <span class="text-3xl font-black text-green-600">
-                                Rp 2.500.000
+                                Rp. {{ number_format($schedule->trainingType->price, 0, ',', '.') }} 
                             </span>
                             <p class="text-sm text-gray-500 mt-1">Biaya Training</p>
                         </div>

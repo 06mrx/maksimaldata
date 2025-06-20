@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');          // singkatan, misal: MTRE
             $table->string('full_name');    // kepanjangan, misal: MikroTik Routing Expert
-            // $table->integer('duration_hours'); // waktu pelatihan dalam jam
+            $table->integer('price'); // waktu pelatihan dalam jam
+            
             $table->string('location');      // lokasi pelatihan
             $table->timestamps();
             $table->softDeletes();

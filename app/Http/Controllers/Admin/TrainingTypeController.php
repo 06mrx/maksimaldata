@@ -5,6 +5,7 @@ use App\Models\TrainingType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\Rule;
 
 
 class TrainingTypeController extends Controller
@@ -12,7 +13,7 @@ class TrainingTypeController extends Controller
 
     public function __construct()
     {
-         // Hanya user dengan permission "view-training-types" yang bisa akses index
+        // Hanya user dengan permission "view-training-types" yang bisa akses index
         $this->middleware('permission:view-trainingtype')->only(['index']);
 
         // Hanya user dengan permission "create-training-types" yang bisa tambah jadwal
@@ -38,10 +39,14 @@ class TrainingTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:10|unique:training_types,name',
+            'name' => [
+                'required',
+                'string',
+                'max:10',
+                Rule::unique('training_types', 'name')->whereNull('deleted_at'),
+            ],
             'full_name' => 'required|string|max:255',
-            // 'duration_hours' => 'required|integer|min:1',
-            // 'location' => 'nullable|string|max:255',
+            'price' => 'required|integer|min:0',
         ]);
 
         TrainingType::create($request->all());
@@ -62,10 +67,16 @@ class TrainingTypeController extends Controller
     public function update(Request $request, TrainingType $trainingType)
     {
         $request->validate([
-            'name' => 'required|string|max:10|unique:training_types,name,' . $trainingType->id,
+            'name' => [
+                'required',
+                'string',
+                'max:10',
+                Rule::unique('training_types', 'name')
+                    ->ignore($trainingType->id)
+                    ->whereNull('deleted_at'),
+            ],
             'full_name' => 'required|string|max:255',
-            // 'duration_hours' => 'required|integer|min:1',
-            // 'location' => 'nullable|string|max:255',
+            'price' => 'required|integer|min:0',
         ]);
 
         $trainingType->update($request->all());
@@ -74,7 +85,7 @@ class TrainingTypeController extends Controller
     }
 
     public function destroy(TrainingType $trainingType)
-    {   
+    {
         $trainingType->trainingSchedules()->each(function ($schedule) {
             $schedule->participants()->delete(); // Hapus peserta terkait
             $schedule->delete(); // Hapus jadwal
