@@ -16,7 +16,7 @@
                         <option value="">-- Pilih Jadwal --</option>
                         @forelse ($trainingSchedules as $schedule)
                             <option value="{{ $schedule->id }}">
-                                {{ strtoupper($schedule->type) }} -
+                                {{ strtoupper($schedule->trainingType?->name) }} -
                                 {{ \Carbon\Carbon::parse($schedule->start_date)->format('d F Y') }}
                             </option>
                         @empty

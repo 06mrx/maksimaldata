@@ -11,7 +11,7 @@
                     Formulir Pendaftaran
                 </h2>
                 <p class="text-xl text-gray-600 font-medium">
-                    Training {{ $schedule->type == 'mtcre' ? 'MTCRE (MikroTik Certified Routing Engineer)' : 'MTCNA (Mikrotik Certified Network Associate)' }} Makassar
+                    Training {{ $schedule->trainingType->name . ' (' . $schedule->trainingType->full_name . ')' }} Makassar
                 </p>
                 <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-sky-500 mx-auto mt-6 rounded-full"></div>
             </div>
@@ -29,7 +29,7 @@
                         <div>
                             <h3 class="text-2xl font-bold text-gray-800">Jadwal Training</h3>
                             <p class="text-blue-600 font-semibold">
-                                {{ $schedule->type == 'mtcre' ? 'MTCRE' : 'MTCNA' }} Batch {{ \Carbon\Carbon::parse($schedule->start_date)->format('F Y') }}
+                                {{ $schedule->trainingType->name }} Batch {{ \Carbon\Carbon::parse($schedule->start_date)->format('F Y') }}
                             </p>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-map-marker-alt text-blue-500 w-5 mr-3"></i>
-                            <span class="text-gray-700"><strong>Lokasi:</strong> Hotel Amaris Pettarani</span>
+                            <span class="text-gray-700"><strong>Lokasi:</strong> <a target="_blank" href="{{$schedule->location}}" class="bg-green-500 px-2 rounded-md">Klik untuk lihat</a> </span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-info-circle text-blue-500 w-5 mr-3"></i>
@@ -71,7 +71,7 @@
                     <div class="mt-6 pt-6 border-t border-gray-200">
                         <div class="text-center">
                             <span class="text-3xl font-black text-green-600">
-                                Rp {{ $schedule->type == 'mtcre' ? '2.500.000' : '2.500.000' }}
+                                Rp 2.500.000
                             </span>
                             <p class="text-sm text-gray-500 mt-1">Biaya Training</p>
                         </div>
@@ -255,7 +255,7 @@
                         <div
                             class="px-4 py-4 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl">
                             <span class="font-bold text-blue-700">
-                                {{ $schedule->type == 'mtcre' ? 'MTCRE (MikroTik Certified Routing Engineer)' : 'MTCNA (Mikrotik Certified Network Associate)' }} - 
+                                {{ $schedule->trainingType->name . ' (' . $schedule->trainingType->full_name .')'  }} - 
                                 {{ \Carbon\Carbon::parse($schedule->start_date)->format('d M Y') }}
                             </span>
                         </div>
@@ -302,7 +302,7 @@
                 </div>
                 <h3 class="text-2xl font-bold text-red-600 mb-2">Pendaftaran Ditutup</h3>
                 <p class="text-red-500 mb-6">
-                    Maaf, pendaftaran untuk training {{ $schedule->type == 'mtcre' ? 'MTCRE' : 'MTCNA' }} 
+                    Maaf, pendaftaran untuk training {{ $schedule->trainingType->name  }} 
                     batch ini sudah ditutup.
                 </p>
                 <a href="{{ route('training.schedules') }}" 

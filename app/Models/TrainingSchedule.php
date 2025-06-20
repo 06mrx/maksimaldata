@@ -17,9 +17,10 @@ class TrainingSchedule extends Model
     // Fillable fields
     protected $fillable = [
         'id',
-        'type',
+        'training_type_id',
         'start_date',
         'end_date',
+        'location', // Lokasi pelatihan
         'status'
     ];
 
@@ -41,6 +42,11 @@ class TrainingSchedule extends Model
     public function participants(): HasMany
     {
         return $this->hasMany(Participant::class, 'training_schedule_id');
+    }
+
+    public function trainingType()
+    {
+        return $this->belongsTo(TrainingType::class, 'training_type_id');
     }
 
     

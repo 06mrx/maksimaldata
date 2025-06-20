@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\TrainingScheduleController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Admin\ParticipantController;
+use App\Http\Controllers\Admin\TrainingTypeController;
+
+
 
 
 
@@ -39,6 +42,8 @@ Route::middleware(['auth'])->prefix('admin')->as('admin.')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('training-schedules', TrainingScheduleController::class);
     Route::resource('participants', ParticipantController::class);
+    Route::resource('training-types', TrainingTypeController::class)->names('training-types');
+
 
 });
 

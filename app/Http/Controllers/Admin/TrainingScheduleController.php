@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Routing\Controller;
 use App\Models\TrainingSchedule;
 use Illuminate\Http\Request;
-
+use App\Models\TrainingType;
 class TrainingScheduleController extends Controller
 {
     public function __construct()
@@ -45,14 +45,16 @@ class TrainingScheduleController extends Controller
 
     public function create()
     {
-        return view('admin.training-schedules.create');
+        $trainingTypes = TrainingType::all();
+        return view('admin.training-schedules.create', compact('trainingTypes'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required|in:,mtcna',
+            'training_type_id' => 'required',
             'start_date' => 'required|date',
+            'location' => 'required',
             'end_date' => 'required|date|after:start_date',
             'status' => 'nullable|in:open,closed',
         ]);
@@ -65,15 +67,17 @@ class TrainingScheduleController extends Controller
 
     public function edit(TrainingSchedule $trainingSchedule)
     {
-        return view('admin.training-schedules.edit', compact('trainingSchedule'));
+        $trainingTypes = TrainingType::all();
+        return view('admin.training-schedules.edit', compact('trainingSchedule', 'trainingTypes'));
     }
 
     public function update(Request $request, TrainingSchedule $trainingSchedule)
     {
         $request->validate([
-            'type' => 'required|in:mtcre,mtcna',
+            'training_type_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
+            'location' => 'required',
             'status' => 'nullable|in:open,closed',
         ]);
 

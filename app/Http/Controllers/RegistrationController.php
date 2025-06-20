@@ -10,11 +10,13 @@ class RegistrationController extends Controller
 {
     public function showForm(Request $request)
     {
-
+        // dd(1);
         $trainingSchedules = TrainingSchedule::where('status', 'open')
             ->whereDate('start_date', '>=', Carbon::today())
             ->orderBy('start_date', 'asc')
             ->get();
+
+            // dd($trainingSchedules);
         
         // Ambil schedule_id dari URL atau session
         $scheduleId = $request->input('schedule_id');
@@ -25,7 +27,7 @@ class RegistrationController extends Controller
         }
 
         $schedule = TrainingSchedule::where('id', $scheduleId)->where('status', 'open')->first();
-
+        // dd($schedule->start_date < now());
         if (!$schedule || $schedule->start_date < now()) {
             // dd('Jadwal tidak tersedia atau sudah lewat.');
             return redirect()->route('homepage', compact('trainingSchedules'))->with('error', 'Jadwal tidak tersedia atau sudah lewat.');

@@ -68,6 +68,15 @@
                 </a>
             </li>
         @endcanany
+
+        @canany(['view-trainingtype', 'create-trainingtype'])
+            <li>
+                <a href="{{ route('admin.training-types.index') }}"
+                    class="flex items-center space-x-3 py-2 px-4 rounded hover:bg-blue-600 group">
+                    <svg class="h-5 w-5 text-blue-200 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M15.5 14V3l3-1v11zm-9 2q1.175 0 2.313.275T11 17.05V7.2q-1.025-.6-2.162-.9T6.5 6q-.9 0-1.787.175T3 6.7v9.9q.85-.3 1.725-.45T6.5 16m14.5.6V4.575q.525.2 1.025.425t.975.55v14.5q-1.175-.975-2.575-1.513T17.5 18q-1.5 0-2.9.525T12 20q-1.2-.95-2.6-1.475T6.5 18q-1.525 0-2.925.538T1 20.05V5.55q1.2-.825 2.613-1.187T6.5 4q1.75 0 3.388.575T13 6.1v10.95q1.05-.5 2.188-.775T17.5 16q.9 0 1.775.15T21 16.6M7 11.525"/></svg>                    <span>Jenis Pelatihan</span>
+                </a>
+            </li>
+        @endcanany
     @else
         <li>
             <a href="/dashboard" class="flex items-center space-x-3 py-2 px-4 rounded hover:bg-blue-600 group">

@@ -186,14 +186,14 @@
         <div class="glass-morphism">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center py-4">
-                    <div class="flex items-center space-x-3">
+                    <a href="/" class="flex items-center space-x-3">
                         <div
                             class="w-12 h-12 bg-white/10 p-1 rounded-xl flex items-center justify-center shadow-lg">
                             {{-- <i class="fas fa-network-wired text-white text-lg"></i> --}}
                             <img src="{{ asset('favicon/apple-icon-76x76.png') }}" alt="">
                         </div>
                         <span class="text-2xl font-bold gradient-text">Maksimal Data</span>
-                    </div>
+                    </a>
 
                     <!-- Desktop Menu -->
                     <div class="hidden md:flex space-x-8 items-center">
@@ -206,7 +206,7 @@
                             </a>
                         @endforeach
                         <a href="#training-schedule"
-                            class="px-6 py-3 bg-gradient-to-r from-blue-600 to-sky-500 text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                            class="px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-500 animate-pulse text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                             Daftar Pelatihan
                         </a>
                     </div>

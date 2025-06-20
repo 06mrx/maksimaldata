@@ -71,7 +71,7 @@
                             {{ ($schedules->currentPage() - 1) * $schedules->perPage() + $loop->iteration }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ strtoupper($schedule->type) }}
+                            {{ strtoupper($schedule->trainingType?->name) }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ \Carbon\Carbon::parse($schedule->start_date)->format('d F Y') }}
@@ -94,7 +94,7 @@
                             <a href="{{ route('admin.training-schedules.edit', $schedule) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
                             <button @click="$dispatch('open-delete-modal', {
                                     url: '{{ route('admin.training-schedules.destroy', $schedule) }}',
-                                    name: '{{ strtoupper($schedule->type) }} - {{ $schedule->start_date }}'
+                                    name: '{{ strtoupper($schedule->trainingType?->name) }} - {{ $schedule->start_date }}'
                                 })"
                                 class="text-red-600 hover:text-red-900">Delete</button>
                         </td>

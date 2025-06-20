@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('training_schedules', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type'); //  / mtcna
+            $table->string('training_type_id'); //  / mtcna
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('status', ['open', 'closed'])->default('open');
