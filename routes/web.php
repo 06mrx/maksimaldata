@@ -10,9 +10,8 @@ use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Admin\ParticipantController;
 use App\Http\Controllers\Admin\TrainingTypeController;
-
-
-
+use App\Http\Controllers\Admin\FacilityController;
+use App\Http\Controllers\Admin\SettingController;
 
 
 // Route::get('/', function () {
@@ -43,8 +42,12 @@ Route::middleware(['auth'])->prefix('admin')->as('admin.')->group(function () {
     Route::resource('training-schedules', TrainingScheduleController::class);
     Route::resource('participants', ParticipantController::class);
     Route::resource('training-types', TrainingTypeController::class)->names('training-types');
+    Route::resource('facilities', FacilityController::class)->names('facilities');
 
-
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('/settings/edit', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/update', [SettingController::class, 'update'])->name('settings.update');
+    
 });
 
 Route::get('/registration/form', [RegistrationController::class, 'showForm'])->name('register.form');

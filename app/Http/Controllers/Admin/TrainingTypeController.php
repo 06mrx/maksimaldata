@@ -42,11 +42,11 @@ class TrainingTypeController extends Controller
             'name' => [
                 'required',
                 'string',
-                'max:10',
+                'max:100',
                 Rule::unique('training_types', 'name')->whereNull('deleted_at'),
             ],
             'full_name' => 'required|string|max:255',
-            'price' => 'required|integer|min:0',
+            // 'price' => 'required|integer|min:0',
         ]);
 
         TrainingType::create($request->all());
@@ -70,13 +70,12 @@ class TrainingTypeController extends Controller
             'name' => [
                 'required',
                 'string',
-                'max:10',
+                'max:100',
                 Rule::unique('training_types', 'name')
                     ->ignore($trainingType->id)
                     ->whereNull('deleted_at'),
             ],
             'full_name' => 'required|string|max:255',
-            'price' => 'required|integer|min:0',
         ]);
 
         $trainingType->update($request->all());

@@ -17,8 +17,6 @@ class TrainingType extends Model
         'id',
         'name',
         'full_name',
-        // 'duration_hours',
-        'price'
     ];
 
     protected static function boot()

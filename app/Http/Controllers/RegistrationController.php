@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TrainingSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use App\Models\Facility;
 class RegistrationController extends Controller
 {
     public function showForm(Request $request)
@@ -14,6 +14,7 @@ class RegistrationController extends Controller
         $trainingSchedules = TrainingSchedule::where('status', 'open')
             ->whereDate('start_date', '>=', Carbon::today())
             ->orderBy('start_date', 'asc')
+            ->with(['trainingType', 'trainingScheduleFacilities'])
             ->get();
 
             // dd($trainingSchedules);

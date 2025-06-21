@@ -21,7 +21,9 @@ class TrainingSchedule extends Model
         'start_date',
         'end_date',
         'location', // Lokasi pelatihan
-        'status'
+        'status',
+        'price',
+        'note'
     ];
 
     // Optional: Auto-generate UUID saat create
@@ -47,6 +49,11 @@ class TrainingSchedule extends Model
     public function trainingType()
     {
         return $this->belongsTo(TrainingType::class, 'training_type_id');
+    }
+
+    public function trainingScheduleFacilities()
+    {
+        return $this->hasMany(TrainingScheduleFacility::class, 'training_schedule_id');
     }
 
     

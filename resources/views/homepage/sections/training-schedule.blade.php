@@ -16,8 +16,8 @@
                         <option value="">-- Pilih Jadwal --</option>
                         @forelse ($trainingSchedules as $schedule)
                             <option value="{{ $schedule->id }}">
-                                {{ strtoupper($schedule->trainingType?->name) }} -
-                                {{ \Carbon\Carbon::parse($schedule->start_date)->format('d F Y') }}
+                                {{ strtoupper($schedule->trainingType?->name) }} {{ $schedule->note }} -
+                                {{ \Carbon\Carbon::parse($schedule->start_date)->format('d F Y') }} | {{$schedule->location }} | {{$schedule->price ? 'Rp. ' . number_format($schedule->price, 0, ',', '.') : 'Gratis' }}
                             </option>
                         @empty
                             <option disabled>Tidak ada jadwal tersedia</option>

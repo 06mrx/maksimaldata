@@ -6,6 +6,9 @@ use Illuminate\Routing\Controller;
 use App\Models\TrainingSchedule;
 use Illuminate\Http\Request;
 use App\Models\TrainingType;
+use App\Models\Facility;
+use Illuminate\Validation\Rule;
+use App\Models\TrainingScheduleFacility; 
 class TrainingScheduleController extends Controller
 {
     public function __construct()
@@ -46,21 +49,40 @@ class TrainingScheduleController extends Controller
     public function create()
     {
         $trainingTypes = TrainingType::all();
-        return view('admin.training-schedules.create', compact('trainingTypes'));
+        $facilities = Facility::all();
+        return view('admin.training-schedules.create', compact('trainingTypes', 'facilities'));
     }
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'training_type_id' => 'required',
             'start_date' => 'required|date',
             'location' => 'required',
             'end_date' => 'required|date|after:start_date',
             'status' => 'nullable|in:open,closed',
+            'price' => 'required|integer|min:0',
+            'note' => 'nullable|string|max:255',
+            'facilities' => 'nullable|array',
+            'facilities.*' => [
+                'exists:facilities,id',
+                Rule::unique('training_schedule_facilities', 'facility_id')
+                    ->where('training_schedule_id', $request->training_type_id)
+                    ->whereNull('deleted_at'),
+            ],
         ]);
 
-        TrainingSchedule::create($request->all() + ['status' => $request->status ?? 'open']);
-
+        $trainingSchedule = TrainingSchedule::create($request->all() + ['status' => $request->status ?? 'open']);
+        // Jika ada fasilitas yang dipilih, simpan ke tabel pivot
+        if ($request->has('facilities')) {
+            foreach ($request->facilities as $facilityId) {
+                $trainingSchedule->trainingScheduleFacilities()->create([
+                    'facility_id' => $facilityId,
+                ]);
+            }
+        }
+        
         return redirect()->route('admin.training-schedules.index')
             ->with('success', 'Jadwal pelatihan berhasil ditambahkan.');
     }
@@ -68,21 +90,38 @@ class TrainingScheduleController extends Controller
     public function edit(TrainingSchedule $trainingSchedule)
     {
         $trainingTypes = TrainingType::all();
-        return view('admin.training-schedules.edit', compact('trainingSchedule', 'trainingTypes'));
+        $facilities = Facility::all();
+        // Ambil fasilitas yang sudah ada untuk jadwal ini
+        // $selectedFacilities = $trainingSchedule->trainingScheduleFacilities->pluck('facility_id')->toArray();
+        return view('admin.training-schedules.edit', compact('trainingSchedule', 'trainingTypes', 'facilities'));
     }
 
     public function update(Request $request, TrainingSchedule $trainingSchedule)
     {
+        
         $request->validate([
             'training_type_id' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'location' => 'required',
             'status' => 'nullable|in:open,closed',
+            'price' => 'required|integer|min:0',
+            'note' => 'nullable|string|max:255',
+            'facilities' => 'nullable|array',
+        
         ]);
 
         $trainingSchedule->update($request->all());
-
+        // Hapus fasilitas lama
+        $trainingSchedule->trainingScheduleFacilities()->delete();
+        // Jika ada fasilitas yang dipilih, simpan ke tabel pivot
+        if ($request->has('facilities')) {
+            foreach ($request->facilities as $facilityId) {
+                $trainingSchedule->trainingScheduleFacilities()->create([
+                    'facility_id' => $facilityId,
+                ]);
+            }
+        }
         return redirect()->route('admin.training-schedules.index')
             ->with('success', 'Jadwal pelatihan berhasil diperbarui.');
     }

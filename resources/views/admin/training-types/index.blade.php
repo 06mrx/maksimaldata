@@ -22,7 +22,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kepanjangan</th>
                     {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durasi (jam)</th> --}}
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
+                    {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th> --}}
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $type->full_name }}</td>
                         {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $type->duration_hours }} jam</td> --}}
-                        <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate ">Rp. {{ $type->price ?? '0' }}</td>
+                        {{-- <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate ">Rp. {{ $type->price ?? '0' }}</td> --}}
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium space-x-2">
                             <a href="{{ route('admin.training-types.edit', $type) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
                             <button @click="$dispatch('open-delete-modal', {

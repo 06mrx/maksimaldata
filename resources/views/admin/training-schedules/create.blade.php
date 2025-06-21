@@ -3,7 +3,7 @@
 @section('page-title', 'Tambah Jadwal Pelatihan')
 
 @section('content')
-{{-- @dump($errors) --}}
+    {{-- @dump($errors) --}}
     <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <form action="{{ route('admin.training-schedules.store') }}" method="POST">
             @csrf
@@ -47,11 +47,35 @@
                 @enderror
             </div>
 
+            <!-- Harga -->
+            <div class="mb-6">
+                <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Harga</label>
+                <input type="number" name="price" id="price" value="{{ old('price') }}"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @error('price')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
             <!-- Lokasi -->
             <div class="mb-6">
                 <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Lokasi</label>
                 <input type="text" name="location" id="location" value="{{ old('location') }}"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @error('location')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Catatan -->
+            <div class="mb-6">
+                <label for="note" class="block text-sm font-medium text-gray-700 mb-1">Keterangan (Opsional) </label>
+                <input type="text" name="note" id="note" value="{{ old('note') }}"
+                    placeholder="Keterangan tambahan"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                @error('note')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Status -->
@@ -66,6 +90,26 @@
                     <div class="text-red-500 text-sm">{{ $message }}</div>
                 @enderror
             </div>
+
+            <!-- Fasilitas checkbox-->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Fasilitas</label>
+                <div class="grid grid-cols-2 gap-4">
+                    @foreach ($facilities as $facility)
+                        <div class="flex items-center">
+                            <input type="checkbox" name="facilities[]" id="facility_{{ $facility->id }}"
+                                value="{{ $facility->id }}" class="mr-2"
+                                {{ in_array($facility->id, old('facilities', [])) ? 'checked' : '' }}>
+                            <label for="facility_{{ $facility->id }}"
+                                class="text-sm text-gray-700">{{ $facility->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                @error('facilities')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
+            </div>
+            
 
             <!-- Submit Button -->
             <div class="flex justify-end space-x-3 mt-6">

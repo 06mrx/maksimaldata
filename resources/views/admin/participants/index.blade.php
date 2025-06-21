@@ -18,7 +18,8 @@
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama atau email..."
                     class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 @if (request('search'))
-                    <button type="button" onclick="window.location='{{ route('admin.participants.index', ['schedule_id' => request('schedule_id')]) }}'"
+                    <button type="button"
+                        onclick="window.location='{{ route('admin.participants.index', ['schedule_id' => request('schedule_id')]) }}'"
                         class="absolute right-8 top-2 text-gray-400 hover:text-gray-600">&times;</button>
                 @endif
                 <button type="submit" class="absolute right-2 top-2 text-gray-500 hover:text-gray-700">
@@ -53,6 +54,8 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">WhatsApp</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kelas</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ukuran
+                        T-Shirt</th>
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
@@ -80,9 +83,17 @@
                                 {{ strtoupper($participant->trainingSchedule->trainingType->name) }}
                             </span>
                         </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <span
+                                class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full 
+                        {{ $participant->tshirt_size === 'S' ? 'bg-green-100 text-green-800' : ($participant->tshirt_size === 'M' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800') }}">
+                                {{ $participant->tshirt_size }}
+                            </span>
+                        </td>
+
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                            <a href="{{ route('admin.participants.show', $participant) }}"
-                                class="text-blue-600 hover:text-blue-900">Lihat</a>
+                            {{-- <a href="{{ route('admin.participants.show', $participant) }}"
+                                class="text-blue-600 hover:text-blue-900">Lihat</a> --}}
                             <button
                                 @click="$dispatch('open-delete-modal', {
                         url: '{{ route('admin.participants.destroy', $participant) }}',

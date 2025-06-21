@@ -178,21 +178,46 @@
             opacity: 1;
         }
     </style>
+    <style>
+        /* Additional CSS for Portfolio Section */
+        .portfolio-item {
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-item {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            #portfolio .grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    </style>
 </head>
 
 <body class="font-['Inter'] bg-gradient-to-br from-slate-50 via-blue-50 to-sky-50 overflow-x-hidden">
+    @php
+        $setting = \App\Models\Setting::first();
+    @endphp
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
         <div class="glass-morphism">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center py-4">
                     <a href="/" class="flex items-center space-x-3">
-                        <div
-                            class="w-12 h-12 bg-white/10 p-1 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-white/10 p-1 rounded-xl flex items-center justify-center shadow-lg">
                             {{-- <i class="fas fa-network-wired text-white text-lg"></i> --}}
                             <img src="{{ asset('favicon/apple-icon-76x76.png') }}" alt="">
                         </div>
-                        <span id="title-text" class="text-2xl  font-bold text-slate-200">Maksimal Data</span>
+                        <span id="title-text" class="text-2xl  font-bold text-slate-200">{{ $setting->title ?? "" }}</span>
                     </a>
 
                     <!-- Desktop Menu -->
@@ -276,26 +301,26 @@
 
     @yield('content')
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const scheduleSelect = document.getElementById('schedule_id');
-        const registerButton = document.getElementById('register-button');
-        const baseUrl = "{{ route('register.form') }}";
+        document.addEventListener('DOMContentLoaded', function() {
+            const scheduleSelect = document.getElementById('schedule_id');
+            const registerButton = document.getElementById('register-button');
+            const baseUrl = "{{ route('register.form') }}";
 
-        scheduleSelect.addEventListener('change', function () {
-            const selectedId = this.value;
-            if (selectedId) {
-                registerButton.href = `${baseUrl}?schedule_id=${selectedId}`;
-                registerButton.classList.remove('pointer-events-none', 'opacity-50');
-            } else {
-                registerButton.href = '#';
-                registerButton.classList.add('pointer-events-none', 'opacity-50');
-            }
+            scheduleSelect.addEventListener('change', function() {
+                const selectedId = this.value;
+                if (selectedId) {
+                    registerButton.href = `${baseUrl}?schedule_id=${selectedId}`;
+                    registerButton.classList.remove('pointer-events-none', 'opacity-50');
+                } else {
+                    registerButton.href = '#';
+                    registerButton.classList.add('pointer-events-none', 'opacity-50');
+                }
+            });
+
+            // Optional: Disable button initially
+            registerButton.classList.add('pointer-events-none', 'opacity-50');
         });
-
-        // Optional: Disable button initially
-        registerButton.classList.add('pointer-events-none', 'opacity-50');
-    });
-</script>
+    </script>
 
     <script>
         // Smooth scrolling and navbar effects
@@ -499,6 +524,24 @@
                 }
             });
 
+        });
+    </script>
+    <script>
+        // Portfolio interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            portfolioItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Add lightbox or modal functionality here
+                    const title = this.querySelector('h3').textContent;
+                    const description = this.querySelector('p').textContent;
+
+                    // For now, just show an alert (replace with your preferred lightbox)
+                    alert(
+                        `${title}\n\n${description}\n\n(Implementasi lightbox/modal bisa ditambahkan di sini)`);
+                });
+            });
         });
     </script>
 </body>

@@ -73,10 +73,44 @@
             <li>
                 <a href="{{ route('admin.training-types.index') }}"
                     class="flex items-center space-x-3 py-2 px-4 rounded hover:bg-blue-600 group">
-                    <svg class="h-5 w-5 text-blue-200 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M15.5 14V3l3-1v11zm-9 2q1.175 0 2.313.275T11 17.05V7.2q-1.025-.6-2.162-.9T6.5 6q-.9 0-1.787.175T3 6.7v9.9q.85-.3 1.725-.45T6.5 16m14.5.6V4.575q.525.2 1.025.425t.975.55v14.5q-1.175-.975-2.575-1.513T17.5 18q-1.5 0-2.9.525T12 20q-1.2-.95-2.6-1.475T6.5 18q-1.525 0-2.925.538T1 20.05V5.55q1.2-.825 2.613-1.187T6.5 4q1.75 0 3.388.575T13 6.1v10.95q1.05-.5 2.188-.775T17.5 16q.9 0 1.775.15T21 16.6M7 11.525"/></svg>                    <span>Jenis Pelatihan</span>
+                    <svg class="h-5 w-5 text-blue-200 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="32"
+                        height="32"
+                        viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
+                        <path fill="currentColor"
+                            d="M15.5 14V3l3-1v11zm-9 2q1.175 0 2.313.275T11 17.05V7.2q-1.025-.6-2.162-.9T6.5 6q-.9 0-1.787.175T3 6.7v9.9q.85-.3 1.725-.45T6.5 16m14.5.6V4.575q.525.2 1.025.425t.975.55v14.5q-1.175-.975-2.575-1.513T17.5 18q-1.5 0-2.9.525T12 20q-1.2-.95-2.6-1.475T6.5 18q-1.525 0-2.925.538T1 20.05V5.55q1.2-.825 2.613-1.187T6.5 4q1.75 0 3.388.575T13 6.1v10.95q1.05-.5 2.188-.775T17.5 16q.9 0 1.775.15T21 16.6M7 11.525" />
+                    </svg>
+                    <span>Jenis Pelatihan</span>
                 </a>
             </li>
         @endcanany
+        @canany(['view-facility', 'create-facility'])
+            <li>
+                <a href="{{ route('admin.facilities.index') }}"
+                    class="flex items-center space-x-3 py-2 px-4 rounded hover:bg-blue-600 group">
+                    <svg class="h-5 w-5 text-blue-200 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" width="32"
+                        height="32"
+                        viewBox="0 0 24 24"><!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE -->
+                        <path fill="currentColor"
+                            d="M3 6.25A3.25 3.25 0 0 1 6.25 3h11.5A3.25 3.25 0 0 1 21 6.25v5.658a1.4 1.4 0 0 0-.988-.791a5 5 0 0 0-.512-.085V8.5h-15v9.25c0 .966.784 1.75 1.75 1.75h5.676l-.186.186A2.5 2.5 0 0 0 11.044 21H6.25A3.25 3.25 0 0 1 3 17.75zm12.994 5.683L14.28 10.22a.75.75 0 1 0-1.06 1.06l1.691 1.692a5.1 5.1 0 0 1 1.083-1.04M4.5 7h15v-.75a1.75 1.75 0 0 0-1.75-1.75H6.25A1.75 1.75 0 0 0 4.5 6.25zm6.28 4.28a.75.75 0 1 0-1.06-1.06l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-2.47-2.47zm9.019.814c.353.077.44.507.185.762l-1.905 1.904a1.527 1.527 0 0 0 2.16 2.16l1.905-1.904c.255-.255.685-.168.762.185a4.075 4.075 0 0 1-5.57 4.622l-2.729 2.73a1.527 1.527 0 0 1-2.16-2.16l2.73-2.73a4.074 4.074 0 0 1 4.622-5.57" />
+                    </svg> <span>Fasilitas</span>
+                </a>
+            </li>
+        @endcanany
+        {{-- Setting menu --}}
+        @can('view-setting')
+            <li>
+                <a href="{{ route('admin.settings.index') }}"
+                    class="flex items-center space-x-3 py-2 px-4 rounded hover:bg-blue-600 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-200 group-hover:text-white" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Pengaturan</span>
+                </a>
+            </li>
+        @endcan
+    {{-- @endrole --}}
     @else
         <li>
             <a href="/dashboard" class="flex items-center space-x-3 py-2 px-4 rounded hover:bg-blue-600 group">
